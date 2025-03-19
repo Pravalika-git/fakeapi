@@ -1,5 +1,5 @@
 let container = document.getElementById("container");
-let url = "https://apple-reminiscent-shark.glitch.me/products";
+let url = "https://odd-cyclic-group.glitch.me/products;
 
 let loader = document.getElementById("loader");
 let title = document.getElementById("title");
