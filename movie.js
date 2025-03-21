@@ -1,63 +1,135 @@
 
 let container = document.getElementById("container");
-let loaders= document.getElementById("loaders")
-const url = 'http://localhost:3000/jobs';
+let loaders = document.getElementById("loaders");
+const url = 'http://localhost:3000/movies';
 const options = {
-	method: 'GET',
-	headers: {
-		'x-rapidapi-key': '1b9c91a7d5msh46dba86d8fc526ep16ec55jsne96d714a88f9',
-		'x-rapidapi-host': 'imdb-top-1000-movies-series.p.rapidapi.com',
-	}
-};
-async function getData(){
-try {
-	const response = await fetch(url, options);
-    if(!response.ok){
-        throw new Error("Invalid or failed to fetch", response.status);
+    method: 'GET',
+    headers: {
+        'x-rapidapi-key': '1b9c91a7d5msh46dba86d8fc526ep16ec55jsne96d714a88f9',
+        'x-rapidapi-host': 'imdb-top-1000-movies-series.p.rapidapi.com',
     }
-	const result = await response.json();
-	displayData(result);
-} catch (err) {
-	console.error(err);
-}
-}
-getData();
+};
 
-    function displayData(obj){
-        console.log(obj)
-      obj.forEach(element => {
-           item =   document.createElement("div");
-          item.className = "item"    
-          item.innerHTML= `
-          <p> Rank: ${element.rank}</p>
-            <p> Series_Title : ${element.Series_Title}</p>
+async function getData() {
+    try {
+        console.log("Fetching data...");
+        const response = await fetch(url, options);
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+            throw new Error(`Invalid or failed to fetch: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log("Fetched data:", result);
+        displayData(result);
+    } catch (err) {
+        console.error("Error fetching data:", err);
+    }
+}
+
+function displayData(obj) {
+    if (!Array.isArray(obj)) {
+        console.error("Expected an array but got:", obj);
+        return;
+    }
+    console.log("Displaying data:", obj);
+    container.innerHTML = ""; // Clear previous data
+    obj.forEach(element => {
+        let item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `
+            <p style="color: #1C448E;"> Rank: ${element.rank}</p>
+            <p style="color: #938ba1;">  Series_Title : ${element.Series_Title}</p>
             <img src="${element.Poster_Link}" alt="${element.Series_Title}" height="250px">
-            <p> Runtime :${element.Runtime}</p>
-            <p> Genre :${element.Genre}</p>
-            <p>IMDB_Rating :${element.IMDB_Rating}</p>
-            <p> Overview :${element.Overview}</p>
-            <p> Director :${element.Director}</p>
-            <p> Star1 : ${element.Star1}</p>
-            <p>  Star2 :${element.Star2}</p>
-            <p>  Star3 : ${element.Star3}</p>
-            <p> Star4 : ${element.Star4}</p>
-            <p>  No_of_Votes :${element.No_of_Votes}</p>
+            <p  style="color: #1C448E;"> Runtime : ${element.Runtime}</p>
+            <p  style="color: #938ba1;"> Genre : ${element.Genre}</p>
+            <p  style="color: #1C448E;"> IMDB_Rating : ${element.IMDB_Rating}</p>
+            <p  style="color: #938ba1;"> Overview : ${element.Overview}</p>
+            <p  style="color: #1C448E;"> Director : ${element.Director}</p>
+            <p  style="color: #938ba1;"> Star1 : ${element.Star1}</p>
+            <p style="color: #1C448E;;"> Star2 : ${element.Star2}</p>
+            <p style="color: #938ba1;"> Star3 : ${element.Star3}</p>
+            <p style="color: #1C448E;"> Star4 : ${element.Star4}</p>
+            <p  style="color: #938ba1;"> No_of_Votes : ${element.No_of_Votes}</p>
+        `;
+        container.appendChild(item);
+    });
+}
+
+const style = document.createElement('style');
+style.innerHTML = `
+    .hover-effect {
+        transition: transform 0.3s ease-in-out;
+    }
+    .hover-effect:hover {
+        transform: scale(1.1);
+    }
+`;
+document.head.appendChild(style);
+
+window.addEventListener("DOMContentLoaded", function () {
+    console.log("Fetching data after 1-minute delay...");
+    setTimeout(getData, 10000); // Fetch data after 1-minute delay
+});
+
+// let container = document.getElementById("container");
+// let loaders= document.getElementById("loaders")
+// const url = 'http://localhost:3000/movies';
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'x-rapidapi-key': '1b9c91a7d5msh46dba86d8fc526ep16ec55jsne96d714a88f9',
+// 		'x-rapidapi-host': 'imdb-top-1000-movies-series.p.rapidapi.com',
+// 	}
+// };
+// async function getData(){
+// try {
+// 	const response = await fetch(url, options);
+//     if(!response.ok){
+//         throw new Error("Invalid or failed to fetch", response.status);
+//     }
+// 	const result = await response.json();
+// 	displayData(result);
+// } catch (err) {
+// 	console.error(err);
+// }
+// }
+// // getData();
+
+//     function displayData(obj){
+//         console.log(obj)
+//       obj.forEach(element => {
+//            item =   document.createElement("div");
+//           item.className = "item"    
+//           item.innerHTML= `
+//           <p> Rank :${element.rank}</p>
+//             <p> Series_Title : ${element.Series_Title}</p>
+//             <img src="${element.Poster_Link}" alt="${element.Series_Title}"  height=250px>
+//             <p> Runtime :${element.Runtime}</p>
+//             <p> Genre:${element.Genre}</p>
+//             <p> IMDB_Rating :${element.IMDB_Rating}</p>
+//             <p> Overview:${element.Overview}</p>
+//             <p> Director :${element.Director}</p>
+//             <p> Star1 :${element.Star1}</p>
+//             <p> Star2 : ${element.Star2}</p>
+//              <p> Start3 :${element.Star3}</p>
+//               <p> Start4 : ${element.Star4}</p>
+//               <p> No_of_Votes :${element.No_of_Votes}</p>
 
          
 
     
-          `
-          container.appendChild(item)
+//           `
+//           container.appendChild(item)
          
-        }); 
+//         }); 
         
        
-    }
+//     }
       
 
-window.addEventListener("DOMContentLoaded", function(){
-        getData();
-    })
+// window.addEventListener("DOMContentLoaded", function(){
+//         // getData();
+//     })
 
 // async function getMovies() {
 //     const url = 'https://imdb-top-1000-movies-series.p.rapidapi.com/byrating';

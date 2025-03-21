@@ -9,21 +9,20 @@
         position: relative;
      }
        
-        #container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            background: white;
-            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
+     #container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: white;
+      transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
   
 
   
         .item{
-            border:1px solid rgb(162, 165, 232);
+            border:1px solid rgb(93, 100, 229);
             align-items: center;
             text-align: center;
             background-color: whitesmoke;
@@ -33,12 +32,20 @@
         .item .img{
           height:100px ;
         }
+        img.hover-effect {
+          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+      
+      .img.hover-effect:hover {
+          transform: scale(1.1) rotate(2deg);
+      }
+      
 
 
       
 .loader {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%);
   --dim: 3rem;
@@ -115,7 +122,7 @@
   <div class="circle"></div>
 </div>
 
-    <span class="loader"></span>
+    <!-- <span class="loader"></span> -->
     <script src="./movie.js"></script>
 </body>
 </html>
